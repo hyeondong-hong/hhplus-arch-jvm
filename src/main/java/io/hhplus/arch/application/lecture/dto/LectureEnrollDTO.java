@@ -12,6 +12,16 @@ public record LectureEnrollDTO(
         @Nullable EnrolledLectureScheduleDTO schedule
 ) {
     public static LectureEnrollDTO of(
+            @NonNull LectureEnroll enroll
+    ) {
+        return new LectureEnrollDTO(
+                enroll.getId(),
+                enroll.getUserId(),
+                null
+        );
+    }
+
+    public static LectureEnrollDTO of(
             @NonNull LectureEnroll enroll,
             @NonNull LectureSchedule schedule,
             @NonNull Lecture lecture
