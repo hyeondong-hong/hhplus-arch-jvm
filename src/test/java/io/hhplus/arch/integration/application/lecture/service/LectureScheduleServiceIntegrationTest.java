@@ -3,6 +3,7 @@ package io.hhplus.arch.integration.application.lecture.service;
 import io.hhplus.arch.application.lecture.service.LectureScheduleService;
 import io.hhplus.arch.domain.lecture.entity.LectureSchedule;
 import io.hhplus.arch.domain.lecture.repository.LectureScheduleRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,6 @@ public class LectureScheduleServiceIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        lectureScheduleRepository.deleteAll();
-
         lectureId = 1L;
         int capacity = 30;
         List<LectureSchedule> lectureSchedules = new ArrayList<>();
@@ -47,6 +46,11 @@ public class LectureScheduleServiceIntegrationTest {
         }
 
         lectureScheduleRepository.saveAll(lectureSchedules);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        lectureScheduleRepository.deleteAll();
     }
 
     @Test
