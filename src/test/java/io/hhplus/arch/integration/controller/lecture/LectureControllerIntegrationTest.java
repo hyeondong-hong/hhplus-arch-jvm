@@ -157,4 +157,56 @@ public class LectureControllerIntegrationTest {
         assertThat(status4xx).isEqualTo(10);
         assertThat(status5xx).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("한 명의 유저가 하나의 특강에 5번 신청하고 한 번만 성공한다")
+    public void api_enrollConflict() throws InterruptedException {
+        Long lectureScheduleId = 3L;
+        Long userId = 201L;
+        int count = 5;
+
+        String url = getBaseUrl() + "/lecture/schedule/enroll";
+
+        CountDownLatch standbyLatch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(count);
+
+        final List<ResponseEntity<LectureEnrollDTO>> list = new ArrayList<>();
+
+        for (int i = 0; i < count; i++) {
+            CompletableFuture.runAsync(() -> {
+                try {
+                    standbyLatch.await();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                LectureEnrollRequest request = new LectureEnrollRequest(lectureScheduleId, userId);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                HttpEntity<LectureEnrollRequest> httpEntity = new HttpEntity<>(request, headers);
+
+                ResponseEntity<LectureEnrollDTO> response = restTemplate.postForEntity(url, httpEntity, LectureEnrollDTO.class);
+                list.add(response);
+                latch.countDown();
+            });
+        }
+        standbyLatch.countDown();
+        latch.await();
+
+        int status2xx = 0;
+        int status4xx = 0;
+        int status5xx = 0;
+        for (ResponseEntity<LectureEnrollDTO> response : list) {
+            if (response.getStatusCode().is2xxSuccessful()) {
+                status2xx++;
+            } else if (response.getStatusCode().is4xxClientError()) {
+                status4xx++;
+            } else if (response.getStatusCode().is5xxServerError()) {
+                status5xx++;
+            }
+        }
+        assertThat(status2xx).isEqualTo(1);
+        assertThat(status4xx).isEqualTo(4);
+        assertThat(status5xx).isEqualTo(0);
+    }
 }
