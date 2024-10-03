@@ -13,6 +13,7 @@ public interface LectureRepository {
     List<Lecture> findAllByIdIn(Collection<Long> ids);
     Page<Lecture> findAllByIdIn(Collection<Long> ids, Pageable pageable);
     Lecture getById(Long id);
-    Lecture save(Lecture entity);
+    Lecture save(Lecture lecture);
+    List<Lecture> saveAll(Iterable<Lecture> lectures);
     void deleteAll();
 }

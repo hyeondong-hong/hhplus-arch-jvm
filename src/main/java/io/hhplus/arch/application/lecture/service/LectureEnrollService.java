@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface LectureEnrollService {
     Page<LectureEnroll> getLectureEnrollAllByUserId(Long userId, Pageable pageable);
-    Long countByUserId(Long lectureScheduleId, Long studentId);
+    Long countByUserId(Long lectureScheduleId, Long userId);
     void delete(LectureEnroll lectureEnroll);
     LectureEnroll save(LectureEnroll lectureEnroll);
 }

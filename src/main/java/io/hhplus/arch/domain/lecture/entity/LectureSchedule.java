@@ -37,4 +37,11 @@ public class LectureSchedule {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
+    public boolean enroll() {
+        if (capacity <= 0) {
+            return false;
+        }
+        capacity--;
+        return true;
+    }
 }

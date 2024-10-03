@@ -45,8 +45,13 @@ public class LectureRepositoryImpl implements LectureRepository {
     }
 
     @Override
-    public Lecture save(Lecture entity) {
-        return jpaRepository.save(entity);
+    public Lecture save(Lecture lecture) {
+        return jpaRepository.save(lecture);
+    }
+
+    @Override
+    public List<Lecture> saveAll(Iterable<Lecture> lectures) {
+        return jpaRepository.saveAll(lectures);
     }
 
     @Override

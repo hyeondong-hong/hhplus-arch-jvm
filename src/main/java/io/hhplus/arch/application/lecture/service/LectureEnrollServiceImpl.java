@@ -29,9 +29,9 @@ public class LectureEnrollServiceImpl implements LectureEnrollService {
     @Override
     public Long countByUserId(
             @NonNull Long lectureScheduleId,
-            @NonNull Long studentId
+            @NonNull Long userId
     ) {
-        return lectureEnrollRepository.countByLectureScheduleIdAndUserId(lectureScheduleId, studentId);
+        return lectureEnrollRepository.countByLectureScheduleIdAndUserId(lectureScheduleId, userId);
     }
 
     @Override

@@ -13,4 +13,6 @@ public interface LectureScheduleRepository {
     List<Long> findDistinctLectureIdsByLectureDateBetween(LocalDate startDate, LocalDate endDate);
     List<LectureSchedule> findAllByIdIn(Collection<Long> ids);
     Map<Long, List<LectureSchedule>> findAvailableAllLectureIdMap(Collection<Long> lectureIds);
+    List<LectureSchedule> saveAll(Iterable<LectureSchedule> lectureSchedules);
+    void deleteAll();
 }

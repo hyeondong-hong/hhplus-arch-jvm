@@ -14,7 +14,8 @@ public record LectureEnrollDTO(
     public static LectureEnrollDTO of(
             @NonNull LectureEnroll enroll,
             @NonNull LectureSchedule schedule,
-            @NonNull Lecture lecture) {
+            @NonNull Lecture lecture
+    ) {
         return new LectureEnrollDTO(
                 enroll.getId(),
                 enroll.getUserId(),

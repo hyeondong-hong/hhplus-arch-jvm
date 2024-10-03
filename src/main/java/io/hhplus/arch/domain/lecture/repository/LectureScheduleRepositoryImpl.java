@@ -60,6 +60,16 @@ public class LectureScheduleRepositoryImpl implements LectureScheduleRepository 
         return toMap(jpaRepository.findByLectureIdInAndCapacityGreaterThanOrderByLectureDate(lectureIds, 0));
     }
 
+    @Override
+    public List<LectureSchedule> saveAll(Iterable<LectureSchedule> lectureSchedules) {
+        return jpaRepository.saveAll(lectureSchedules);
+    }
+
+    @Override
+    public void deleteAll() {
+        jpaRepository.deleteAll();
+    }
+
     private Map<Long, List<LectureSchedule>> toMap(
             final Collection<LectureSchedule> schedules
     ) {

@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class LectureEnrollRepositoryImpl implements LectureEnrollRepository {
 
@@ -31,13 +33,18 @@ public class LectureEnrollRepositoryImpl implements LectureEnrollRepository {
     }
 
     @Override
-    public void delete(LectureEnroll entity) {
-        jpaRepository.delete(entity);
+    public void delete(LectureEnroll lectureEnroll) {
+        jpaRepository.delete(lectureEnroll);
     }
 
     @Override
-    public LectureEnroll save(LectureEnroll entity) {
-        return jpaRepository.save(entity);
+    public LectureEnroll save(LectureEnroll lectureEnroll) {
+        return jpaRepository.save(lectureEnroll);
+    }
+
+    @Override
+    public List<LectureEnroll> saveAll(Iterable<LectureEnroll> lectureEnrolls) {
+        return jpaRepository.saveAll(lectureEnrolls);
     }
 
     @Override

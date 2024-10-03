@@ -100,7 +100,7 @@ public class LectureFacade {
 
             userService.getOrCreateUser(userId);
 
-            schedule.setCapacity(schedule.getCapacity() - 1);
+            schedule.enroll();
             schedule = lectureScheduleService.save(schedule);
             enroll = lectureEnrollService.save(enroll);
             final Lecture lecture = lectureService.getLecture(schedule.getLectureId());
