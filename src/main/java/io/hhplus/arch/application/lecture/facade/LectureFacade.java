@@ -104,7 +104,7 @@ public class LectureFacade {
             schedule = lectureScheduleService.save(schedule);
             enroll = lectureEnrollService.save(enroll);
             final Lecture lecture = lectureService.getLecture(schedule.getLectureId());
-            return makeEnrollDTO(enroll, schedule, lecture);
+            return LectureEnrollDTO.of(enroll, schedule, lecture);
         }));
     }
 
@@ -131,30 +131,10 @@ public class LectureFacade {
                 LectureSchedule schedule = scheduleMap.get(enroll.getLectureScheduleId());
                 Lecture lecture = lectureMap.get(schedule.getLectureId());
 
-                return makeEnrollDTO(enroll, schedule, lecture);
+                return LectureEnrollDTO.of(enroll, schedule, lecture);
             }).toList();
 
             return new PageImpl<>(enrollDTOs, pageable, enrolls.getTotalElements());
         }));
-    }
-
-    private LectureEnrollDTO makeEnrollDTO(
-            final LectureEnroll enroll,
-            final LectureSchedule schedule,
-            final Lecture lecture
-    ) {
-        return new LectureEnrollDTO(
-                enroll.getId(),
-                enroll.getUserId(),
-                new EnrolledLectureScheduleDTO(
-                        schedule.getId(),
-                        schedule.getLectureDate(),
-                        new EnrolledLectureDTO(
-                                lecture.getId(),
-                                lecture.getTitle(),
-                                lecture.getLecturerName()
-                        )
-                )
-        );
     }
 }
