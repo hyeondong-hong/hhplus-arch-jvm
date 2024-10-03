@@ -3,6 +3,7 @@ package io.hhplus.arch.integration.application.lecture.service;
 import io.hhplus.arch.application.lecture.service.LectureEnrollService;
 import io.hhplus.arch.domain.lecture.entity.LectureEnroll;
 import io.hhplus.arch.domain.lecture.repository.LectureEnrollRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,8 +33,6 @@ public class LectureEnrollServiceIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        lectureEnrollRepository.deleteAll();
-
         userId = 1L;
         List<LectureEnroll> lectureEnrolls = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -45,6 +44,11 @@ public class LectureEnrollServiceIntegrationTest {
         }
 
         lectureEnrollRepository.saveAll(lectureEnrolls);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        lectureEnrollRepository.deleteAll();
     }
 
     @Test

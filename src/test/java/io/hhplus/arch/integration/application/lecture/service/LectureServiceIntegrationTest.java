@@ -4,6 +4,7 @@ import io.hhplus.arch.application.lecture.service.LectureService;
 import io.hhplus.arch.domain.lecture.entity.Lecture;
 import io.hhplus.arch.domain.lecture.repository.LectureRepository;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,8 +36,6 @@ public class LectureServiceIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        lectureRepository.deleteAll();
-
         List<String> lecturerNames = List.of(
                 "렌", "타일러", "이석범", "하헌우", "허재", "김종협", "로이", "토투");
 
@@ -52,6 +51,11 @@ public class LectureServiceIntegrationTest {
             }
         }
         lectureRepository.saveAll(lectures);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        lectureRepository.deleteAll();
     }
 
     @Test
